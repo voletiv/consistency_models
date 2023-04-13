@@ -30,6 +30,26 @@ To install all packages in this codebase along with their dependencies, run
 pip install -e .
 ```
 
+If mpi4py doesn't install, try installing one-by-one (with mpi4py from conda):
+```sh
+pip install blobfile
+pip install torch
+pip install tqdm
+pip install numpy
+pip install scipy
+pip install pandas
+pip install Cython
+pip install piq==0.7.0
+pip install joblib==0.14.0
+pip install albumentations==0.4.3
+pip install lmdb
+pip install clip@git+https://github.com/openai/CLIP.git
+conda install -c conda-forge mpi4py mpich
+pip install flash-attn
+pip install pillow
+pip install - e.
+```
+
 # Model training and sampling
 
 We provide examples of EDM training, consistency distillation, consistency training, single-step generation, and multistep generation in [cm/scripts/launch.sh](scripts/launch.sh).
