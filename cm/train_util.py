@@ -494,6 +494,26 @@ class CMTrainLoop(TrainLoop):
                     target_model=self.target_model,
                     model_kwargs=micro_cond,
                 )
+            elif self.training_mode == "generalized_consistency_distillation":
+                compute_losses = functools.partial(
+                    self.diffusion.consistency_losses,
+                    self.ddp_model,
+                    micro,
+                    num_scales,
+                    target_model=self.target_model,
+                    teacher_model=self.teacher_model,
+                    teacher_diffusion=self.teacher_diffusion,
+                    model_kwargs=micro_cond,
+                )
+            elif self.training_mode == "generalized_consistency_training":
+                compute_losses = functools.partial(
+                    self.diffusion.general_consistency_losses,
+                    self.ddp_model,
+                    micro,
+                    num_scales,
+                    target_model=self.target_model,
+                    model_kwargs=micro_cond,
+                )
             else:
                 raise ValueError(f"Unknown training mode {self.training_mode}")
 
